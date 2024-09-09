@@ -1,0 +1,1025 @@
+// we are using .env for -- to store environment variables.
+
+// # VITE_APP_ID="3b42bcd142e8ad7f1a4305ff045589ee"
+// VITE_APP_ID=3b42bcd142e8ad7f1a4305ff045589ee
+
+// the second is correct app id code
+
+
+
+// Weather.jsx 
+// import React, { useEffect, useRef, useState } from "react";
+// import "./Weather.css";
+// import search_icon from "../assets/search.png";
+// import clear_icon from "../assets/clear.png";
+// import cloud_icon from "../assets/cloud.png";
+// import drizzle_icon from "../assets/drizzle.png";
+// import rain_icon from "../assets/rain.png";
+// import snow_icon from "../assets/snow.png";
+// import wind_icon from "../assets/wind.png";
+// import humidity_icon from "../assets/humidity.png";
+
+// const Weather = () => {
+//   const inputRef = useRef();
+//   const [weatherData, setWeatherData] = useState(false);
+
+//   const allIcons = {
+//     "01d": clear_icon,
+//     "01n": clear_icon,
+//     "02d": cloud_icon,
+//     "02n": cloud_icon,
+//     "03d": cloud_icon,
+//     "03n": cloud_icon,
+//     "04d": drizzle_icon,
+//     "04n": drizzle_icon,
+//     "09d": rain_icon,
+//     "09n": rain_icon,
+//     "10d": rain_icon,
+//     "10n": rain_icon,
+//     "13d": snow_icon,
+//     "13n": snow_icon,
+//   };
+
+//   const search = async (city) => {
+//     if (city === "") {
+//       alert("Enter City Name");
+//       return;
+//     }
+//     try {
+//       const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${import.meta.env.VITE_APP_ID}`;
+//       const response = await fetch(url);
+//       const data = await response.json();
+
+//       if (!response.ok) {
+//         alert(data.message);
+//         return;
+//       }
+
+//       console.log(data);
+//       const icon = allIcons[data.weather[0].icon] || clear_icon;
+//       setWeatherData({
+//         humidity: data.main.humidity,
+//         windSpeed: data.wind.speed,
+//         temperature: Math.floor(data.main.temp),
+//         location: data.name,
+//         icon: icon,
+//       });
+//     } catch (error) {
+//       setWeatherData(false);
+//       console.log("Error fetching weather data");
+//     }
+//   };
+
+//   useEffect(() => {
+//     search("Tbilisi");
+//   }, []);
+
+//   return (
+//     <div className="weather">
+//       <div className="search-bar">
+//         <input ref={inputRef} type="text" placeholder="Search" />
+//         <img
+//           src={search_icon}
+//           alt=""
+//           onClick={() => search(inputRef.current.value)}
+//         />
+//       </div>
+//       {weatherData ? (
+//         <>
+//           <img src={weatherData.icon} alt="" className="weather-icon" />
+//           <p className="temperature">{weatherData.temperature}°c</p>
+//           <p className="location">{weatherData.location}</p>
+//           <div className="weather-data">
+//             <div className="col">
+//               <img src={humidity_icon} alt="" />
+//               <div>
+//                 <p>{weatherData.humidity} %</p>
+//                 <span>Humidity</span>
+//               </div>
+//             </div>
+//             <div className="col">
+//               <img src={wind_icon} alt="" />
+//               <div>
+//                 <p>{weatherData.windSpeed} Km/h</p>
+//                 <span>Wind Speed</span>
+//               </div>
+//             </div>
+//           </div>
+//         </>
+//       ) : (
+//         <></>
+//       )}
+//     </div>
+//   );
+// };
+
+// export default Weather;
+
+
+Weather.css
+// .weather{
+//     place-self: center;
+//     padding: 40px;
+//     border-radius: 10px;
+//     background-image: linear-gradient(45deg, #2f4680, #500ae4);
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//     width: 400px;
+// }
+// .search-bar{
+//     display: flex;
+//     align-items: center;
+//     gap: 12px;
+// }
+// .search-bar input{
+//     height: 50px;
+//     border: none;
+//     outline: none;
+//     border-radius: 40px;
+//     padding-left: 25px;
+//     color: #626262;
+//     background: #ebfffc;
+//     font-size: 18px;
+// }
+// .search-bar img{
+//     width: 50px;
+//     padding: 15px;
+//     border-radius: 50%;
+//     background: #ebfffc;
+//     cursor: pointer;
+// }
+// .weather-icon{
+//     width: 150px;
+//     margin: 30px 0;
+// }
+// .temperature{
+//     color: #fff;
+//     font-size: 80px;
+//     line-height: 1;
+// }
+// .location{
+//     color: #fff;
+//     font-size: 40px;
+// }
+// .weather-data{
+//     width: 100%;
+//     margin-top: 40px;
+//     color: #fff;
+//     display: flex;
+//     justify-content: space-between;
+// }
+// .weather-data .col{
+//     display: flex;
+//     align-items: flex-start;
+//     gap: 12px;
+//     font-size: 22px;
+// }
+// .weather-data .col span{
+//     display: block;
+//     font-size: 16px;
+// }
+// .weather-data .col img{
+//     width: 26px;
+//     margin-top: 10px;
+// }
+// @media (max-width: 440px) {
+//     .weather{
+//         place-self: center;
+//         padding: 40px;
+//         border-radius: 10px;
+//         background-image: linear-gradient(45deg, #2f4680, #500ae4);
+//         display: flex;
+//         flex-direction: column;
+//         align-items: center;
+//         width: 380px;
+//     }
+//     .search-bar{
+//         display: flex;
+//         align-items: center;
+//         gap: 12px;
+//     }
+//     .search-bar input{
+//         height: 50px;
+//         border: none;
+//         outline: none;
+//         border-radius: 40px;
+//         padding-left: 25px;
+//         color: #626262;
+//         background: #ebfffc;
+//         font-size: 18px;
+//     }
+//     .search-bar img{
+//         width: 50px;
+//         padding: 15px;
+//         border-radius: 50%;
+//         background: #ebfffc;
+//         cursor: pointer;
+//     }
+//     .weather-icon{
+//         width: 150px;
+//         margin: 30px 0;
+//     }
+//     .temperature{
+//         color: #fff;
+//         font-size: 80px;
+//         line-height: 1;
+//     }
+//     .location{
+//         color: #fff;
+//         font-size: 40px;
+//     }
+//     .weather-data{
+//         width: 100%;
+//         margin-top: 40px;
+//         color: #fff;
+//         display: flex;
+//         justify-content: space-between;
+//     }
+//     .weather-data .col{
+//         display: flex;
+//         align-items: flex-start;
+//         gap: 12px;
+//         font-size: 22px;
+//     }
+//     .weather-data .col span{
+//         display: block;
+//         font-size: 16px;
+//     }
+//     .weather-data .col img{
+//         width: 26px;
+//         margin-top: 10px;
+//     }
+// }
+
+// i changed components folder inside this file Middle.jsx because there should be same names two places Main.jsx and Main.jsx (that's why)
+
+
+
+
+// import React, { useEffect, useRef, useState } from "react";
+// import search_icon from "../assets/search.png";
+// import clear_icon from "../assets/clear.png";
+// import cloud_icon from "../assets/cloud.png";
+// import drizzle_icon from "../assets/drizzle.png";
+// import rain_icon from "../assets/rain.png";
+// import snow_icon from "../assets/snow.png";
+// import wind_icon from "../assets/wind.png";
+// import humidity_icon from "../assets/humidity.png";
+
+// const Weather = () => {
+//   const inputRef = useRef();
+//   const [weatherData, setWeatherData] = useState(false);
+
+//   const allIcons = {
+//     "01d": clear_icon,
+//     "01n": clear_icon,
+//     "02d": cloud_icon,
+//     "02n": cloud_icon,
+//     "03d": cloud_icon,
+//     "03n": cloud_icon,
+//     "04d": drizzle_icon,
+//     "04n": drizzle_icon,
+//     "09d": rain_icon,
+//     "09n": rain_icon,
+//     "10d": rain_icon,
+//     "10n": rain_icon,
+//     "13d": snow_icon,
+//     "13n": snow_icon,
+//   };
+
+//   const search = async (city) => {
+//     if (city === "") {
+//       alert("Enter City Name");
+//       return;
+//     }
+//     try {
+//       const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${
+//         import.meta.env.VITE_APP_ID
+//       }`;
+//       const response = await fetch(url);
+//       const data = await response.json();
+
+//       if (!response.ok) {
+//         alert(data.message);
+//         return;
+//       }
+
+//       console.log(data);
+//       const icon = allIcons[data.weather[0].icon] || clear_icon;
+//       setWeatherData({
+//         humidity: data.main.humidity,
+//         windSpeed: data.wind.speed,
+//         temperature: Math.floor(data.main.temp),
+//         location: data.name,
+//         icon: icon,
+//       });
+//     } catch (error) {
+//       setWeatherData(false);
+//       console.log("Error fetching weather data");
+//     }
+//   };
+
+//   useEffect(() => {
+//     search("Tbilisi");
+//   }, []);
+
+//   return (
+//     <div className="weather">
+//       <div className="search-bar">
+//         <input ref={inputRef} type="text" placeholder="Search" />
+//         <img
+//           src={search_icon}
+//           alt=""
+//           onClick={() => search(inputRef.current.value)}
+//         />
+//       </div>
+//       {weatherData ? (
+//         <>
+//           <img src={weatherData.icon} alt="" className="weather-icon" />
+//           <p className="temperature">{weatherData.temperature}°c</p>
+//           <p className="location">{weatherData.location}</p>
+//           <div className="weather-data">
+//             <div className="col">
+//               <img src={humidity_icon} alt="" />
+//               <div>
+//                 <p>{weatherData.humidity} %</p>
+//                 <span>Humidity</span>
+//               </div>
+//             </div>
+//             <div className="col">
+//               <img src={wind_icon} alt="" />
+//               <div>
+//                 <p>{weatherData.windSpeed} Km/h</p>
+//                 <span>Wind Speed</span>
+//               </div>
+//             </div>
+//           </div>
+//         </>
+//       ) : (
+//         <></>
+//       )}
+//     </div>
+//   );
+// };
+
+// export default Middle;
+
+
+
+// import React from 'react'
+// import Header from '../src/components/Header'
+// import Middle from './components/Middle'
+// import Footer from '../src/components/Footer'
+// import Home from '../src/pages/Home'
+// import Navbar from './pages/Navbar'
+
+
+// const App = () => {
+//   return (
+//     <div className='app'>
+//       <Header />
+//       <Middle />
+//       <Footer />
+//       <Home />
+//       <Navbar />
+//     </div>
+//   )
+// }
+
+// export default App
+
+// import React from 'react';
+// import { FaBars } from "react-icons/fa";
+// import "./../css/Navbar.css";
+
+// const Navbar = () => {
+//   return (
+//     <div>
+//         <nav className="navbar">
+//           <ul>
+//             <li className='nav'><FaBars /></li>
+//             <li className='cloud'></li>
+//           </ul>
+//         </nav>
+//     </div>
+//   )
+// }
+
+// export default Navbar  
+
+
+/* .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(90deg, #2f4680, #500ae4);
+    padding: 10px 20px;
+    color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  .nav-left, .nav-right {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+  }
+  
+  .nav-icon {
+    font-size: 24px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  
+  .nav-icon:hover {
+    color: #ffcc00; 
+  }
+  
+  .nav-item {
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  
+  .nav-item:hover {
+    color: #ffcc00; 
+  }
+  
+  .close-icon {
+    font-size: 24px;
+  }
+  
+  .navbar ul {
+    margin: 0;
+    padding: 0;
+  }
+   */
+
+  // import React from 'react';
+// import { FaBars } from "react-icons/fa";
+// import { IoHomeSharp } from "react-icons/io5";
+// import { AiOutlineClose } from 'react-icons/ai';
+// import "./../css/Navbar.css";
+
+// const Navbar = () => {
+//   return (
+//     <div>
+//         <nav className="navbar">
+//           <ul>
+//             <li className='nav'><FaBars /></li>
+//           </ul>
+//           <ul>
+//             <li> <AiOutlineClose /> </li>
+//             <li> <IoHomeSharp /> Home </li>
+//           </ul>
+//         </nav>
+//     </div>
+//   )
+// }
+
+// export default Navbar  
+// import React from 'react';
+// import { FaBars } from "react-icons/fa";
+// import { IoHomeSharp } from "react-icons/io5";
+// import { AiOutlineClose } from 'react-icons/ai';
+// import "./../css/Navbar.css";
+
+// const Navbar = ({ onHomeClick }) => {
+//   return (
+//     <div>
+//         <nav className="navbar">
+//           <ul>
+//             <li className='nav'><FaBars /></li>
+//           </ul>
+//           <ul>
+//             <li> <AiOutlineClose /> </li>
+//             <li onClick={onHomeClick}> <IoHomeSharp /> Home </li>
+//           </ul>
+//         </nav>
+//     </div>
+//   )
+// }
+
+// export default Navbar;
+// import React from 'react';
+// import { FaBars } from "react-icons/fa";
+// import { IoHomeSharp } from "react-icons/io5";
+// import { AiOutlineClose } from 'react-icons/ai';
+// import "./../css/Navbar.css";
+
+// const Navbar = ({ onHomeClick }) => {
+//   return (
+//     <div>
+//         <nav className="navbar">
+//           <ul>
+//             <li className='nav'><FaBars /></li>
+//           </ul>
+//           <ul>
+//             <li> <AiOutlineClose /> </li>
+//             <li onClick={onHomeClick}> <IoHomeSharp /> Home </li>
+//           </ul>
+//         </nav>
+//     </div>
+//   )
+// }
+
+// export default Navbar;
+// import React from 'react';
+// import { FaBars } from "react-icons/fa";
+// import { IoHomeSharp } from "react-icons/io5";
+// import { AiOutlineClose } from 'react-icons/ai';
+// import "./../css/Navbar.css";
+
+// const Navbar = ({ onHomeClick, onCloseClick }) => {
+//   return (
+//     <div>
+//         <nav className="navbar">
+//           <ul>
+//             <li className='nav'><FaBars /></li>
+//           </ul>
+//           <ul>
+//             <li onClick={onCloseClick}> <AiOutlineClose /> </li>
+//             <li onClick={onHomeClick}> <IoHomeSharp /> Home </li>
+//           </ul>
+//         </nav>
+//     </div>
+//   )
+// }
+
+// export default Navbar;
+// import React from 'react';
+// import { FaBars } from "react-icons/fa";
+// import { IoHomeSharp } from "react-icons/io5";
+// import { AiOutlineClose } from 'react-icons/ai';
+// import "./../css/Navbar.css";
+
+// const Navbar = ({ onHomeClick, onCloseClick }) => {
+//   return (
+//     <div>
+//         <nav className="navbar">
+//           <ul className="nav-left">
+//             <li className='nav-icon'><FaBars /></li>
+//           </ul>
+//           <ul className="nav-right">
+//             <li onClick={onCloseClick} className='nav-icon close-icon'> <AiOutlineClose /> </li>
+//             <li onClick={onHomeClick} className='nav-item'> <IoHomeSharp /> Home </li>
+//           </ul>
+//         </nav>
+//     </div>
+//   )
+// }
+
+// export default Navbar;
+
+// import React from 'react';
+// import Header from './components/Header';
+// import Middle from './components/Middle';
+// import Footer from './components/Footer';
+// import Home from './pages/Home';
+// import Navbar from './components/Navbar';
+
+// const App = () => {
+//   return (
+//     <div className='app'>
+//       <Header />
+//       <Middle />
+//       <Footer />
+//       <Home />
+//       <Navbar />
+//     </div>
+//   );
+// }
+
+// export default App;
+// import React, { useState } from 'react';
+// import Header from './components/Header';
+// import Middle from './components/Middle';
+// import Footer from './components/Footer';
+// import Navbar from './components/Navbar';
+
+// const App = () => {
+//   const [showMiddle, setShowMiddle] = useState(false);
+
+//   const handleHomeClick = () => {
+//     setShowMiddle(true);
+//   };
+
+//   return (
+//     <div className='app'>
+//       <Header />
+//       {showMiddle && <Middle />}
+//       <Footer />
+//       <Navbar onHomeClick={handleHomeClick} />
+//     </div>
+//   );
+// }
+
+// export default App;
+// import React, { useState } from 'react';
+// import Header from './components/Header';
+// import Middle from './components/Middle';
+// import Footer from './components/Footer';
+// import Navbar from './components/Navbar';
+
+// const App = () => {
+//   const [showMiddle, setShowMiddle] = useState(false);
+
+//   const handleHomeClick = () => {
+//     setShowMiddle(prevState => !prevState);
+//   };
+
+//   return (
+//     <div className='app'>
+//       <Header />
+//       {showMiddle && <Middle />}
+//       <Footer />
+//       <Navbar onHomeClick={handleHomeClick} />
+//     </div>
+//   );
+// }
+
+// export default App;
+
+// import React from 'react';
+// import Header from './components/Header';
+// import Middle from './components/Middle';
+// import Footer from './components/Footer';
+// import Home from './pages/Home';
+// import Navbar from './components/Navbar';
+
+// const App = () => {
+//   return (
+//     <div className='app'>
+//       <Header />
+//       <Middle />
+//       <Footer />
+//       <Home />
+//       <Navbar />
+//     </div>
+//   );
+// }
+
+// export default App;
+// import React, { useState } from 'react';
+// import Header from './components/Header';
+// import Middle from './components/Middle';
+// import Footer from './components/Footer';
+// import Navbar from './components/Navbar';
+
+// const App = () => {
+//   const [showMiddle, setShowMiddle] = useState(false);
+
+//   const handleHomeClick = () => {
+//     setShowMiddle(true);
+//   };
+
+//   return (
+//     <div className='app'>
+//       <Header />
+//       {showMiddle && <Middle />}
+//       <Footer />
+//       <Navbar onHomeClick={handleHomeClick} />
+//     </div>
+//   );
+// }
+
+// export default App;
+// import React, { useState } from 'react';
+// import Header from './components/Header';
+// import Middle from './components/Middle';
+// import Footer from './components/Footer';
+// import Navbar from './components/Navbar';
+
+// const App = () => {
+//   const [showMiddle, setShowMiddle] = useState(false);
+
+//   const handleHomeClick = () => {
+//     setShowMiddle(prevState => !prevState);
+//   };
+
+//   return (
+//     <div className='app'>
+//       <Header />
+//       {showMiddle && <Middle />}
+//       <Footer />
+//       <Navbar onHomeClick={handleHomeClick} />
+//     </div>
+//   );
+// }
+
+// export default App;
+
+// import React, { useEffect, useRef, useState } from "react";
+// import "./../css/New.css";
+// import './../css/NewResponsive.css'
+// import search_icon from "../assets/search.png";
+// import clear_icon from "../assets/clear.png";
+// import cloud_icon from "../assets/cloud.png";
+// import drizzle_icon from "../assets/drizzle.png";
+// import rain_icon from "../assets/rain.png";
+// import snow_icon from "../assets/snow.png";
+// import wind_icon from "../assets/wind.png";
+// import humidity_icon from "../assets/humidity.png";
+
+// const Middle = () => {
+//   const inputRef = useRef();
+//   const [weatherData, setWeatherData] = useState(false);
+
+//   const allIcons = {
+//     "01d": clear_icon,
+//     "01n": clear_icon,
+//     "02d": cloud_icon,
+//     "02n": cloud_icon,
+//     "03d": cloud_icon,
+//     "03n": cloud_icon,
+//     "04d": drizzle_icon,
+//     "04n": drizzle_icon,
+//     "09d": rain_icon,
+//     "09n": rain_icon,
+//     "10d": rain_icon,
+//     "10n": rain_icon,
+//     "13d": snow_icon,
+//     "13n": snow_icon,
+//   };
+
+//   const search = async (city) => {
+//     if (city === "") {
+//       alert("Enter City Name");
+//       return;
+//     }
+//     try {
+//       const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${
+//         import.meta.env.VITE_APP_ID
+//       }`;
+//       const response = await fetch(url);
+//       const data = await response.json();
+
+//       if (!response.ok) {
+//         alert(data.message);
+//         return;
+//       }
+
+//       console.log(data);
+//       const icon = allIcons[data.weather[0].icon] || clear_icon;
+//       setWeatherData({
+//         humidity: data.main.humidity,
+//         windSpeed: data.wind.speed,
+//         temperature: Math.floor(data.main.temp),
+//         location: data.name,
+//         icon: icon,
+//       });
+//     } catch (error) {
+//       setWeatherData(false);
+//       console.log("Error fetching weather data");
+//     }
+//   };
+
+//   useEffect(() => {
+//     search("Tbilisi");
+//   }, []);
+
+//   return (
+//     <div className="weather">
+//       <div className="search-bar">
+//         <input ref={inputRef} type="text" placeholder="Search" />
+//         <img
+//           src={search_icon}
+//           alt=""
+//           onClick={() => search(inputRef.current.value)}
+//         />
+//       </div>
+//       {weatherData ? (
+//         <>
+//           <img src={weatherData.icon} alt="" className="weather-icon" />
+//           <p className="temperature">{weatherData.temperature}°c</p>
+//           <p className="location">{weatherData.location}</p>
+//           <div className="weather-data">
+//             <div className="col">
+//               <img src={humidity_icon} alt="" />
+//               <div>
+//                 <p>{weatherData.humidity} %</p>
+//                 <span>Humidity</span>
+//               </div>
+//             </div>
+//             <div className="col">
+//               <img src={wind_icon} alt="" />
+//               <div>
+//                 <p>{weatherData.windSpeed} Km/h</p>
+//                 <span>Wind Speed</span>
+//               </div>
+//             </div>
+//           </div>
+//         </>
+//       ) : (
+//         <></>
+//       )}
+//     </div>
+//   );
+// };
+
+// export default Middle;
+
+// import React, { useState } from 'react';
+// import { FaBars } from "react-icons/fa";
+// import { IoHomeSharp } from "react-icons/io5";
+// import { AiOutlineClose } from 'react-icons/ai';
+// import "./../css/Navbar.css";
+
+// const Navbar = ({ onHomeClick, onCloseClick }) => {
+//   const [isOpen, setIsOpen] = useState(false);
+
+//   const handleIconClick = () => {
+//     setIsOpen(!isOpen);
+//   };
+
+//   return (
+//     <div>
+//       <nav className="navbar">
+//         <ul className="nav-left">
+//           <li className='nav-icon' onClick={handleIconClick}>
+//             {isOpen ? <AiOutlineClose /> : <FaBars />}
+//           </li>
+//         </ul>
+//         {isOpen && (
+//           <ul className="nav-right">
+//             <li onClick={onCloseClick} className='nav-icon close-icon'> <AiOutlineClose /> </li>
+//             <li onClick={onHomeClick} className='nav-item'> <IoHomeSharp /> Home </li>
+//           </ul>
+//         )}
+//       </nav>
+//     </div>
+//   );
+// }
+
+// export default Navbar;
+// import React, { useState } from 'react';
+// import { FaBars } from "react-icons/fa";
+// import { IoHomeSharp } from "react-icons/io5";
+// import { AiOutlineClose } from 'react-icons/ai';
+// import { IoMdSunny } from "react-icons/io";
+// import { FaMoon } from "react-icons/fa";
+// import "./../css/Navbar.css";
+
+// const Navbar = ({ onHomeClick, onCloseClick }) => {
+//   const [isOpen, setIsOpen] = useState(false);
+//   const [isDarkMode, setIsDarkMode] = useState(false);
+
+//   const handleIconClick = () => {
+//     setIsOpen(!isOpen);
+//   };
+
+//   const handleThemeToggle = () => {
+//     setIsDarkMode(!isDarkMode);
+//     document.body.classList.toggle('dark-mode'); // Toggles dark mode class on body
+//   };
+
+//   return (
+//     <div>
+//       <nav className={`navbar ${isDarkMode ? 'dark' : ''}`}>
+//         {/* Left Section: Always shows the FaBars icon */}
+//         <ul className="nav-left">
+//           <li 
+//             className='nav-icon' 
+//             onClick={handleIconClick}
+//           >
+//             <FaBars />
+//           </li>
+//         </ul>
+//         {/* Right Section: Shows menu items and close icon when isOpen is true */}
+//         {isOpen && (
+//           <ul className="nav-right">
+//             <li onClick={handleIconClick} className='nav-icon close-icon'>
+//               <AiOutlineClose />
+//             </li>
+//             <li onClick={onHomeClick} className='nav-item'>
+//               <IoHomeSharp /> Home
+//             </li>
+//             <li onClick={handleThemeToggle} className='nav-icon'>
+//               {isDarkMode ? <IoMdSunny /> : <FaMoon />}
+//             </li>
+//           </ul>
+//         )}
+//       </nav>
+//     </div>
+//   );
+// }
+
+// export default Navbar;
+
+// import React, { useState } from 'react';
+// import Header from './components/Header';
+// import Middle from './components/Middle';
+// import Footer from './components/Footer';
+// import Navbar from './components/Navbar';
+
+// const App = () => {
+//   const [showMiddle, setShowMiddle] = useState(false);
+
+//   const handleHomeClick = () => {
+//     setShowMiddle(true);
+//   };
+
+//   const handleCloseClick = () => {
+//     setShowMiddle(false);
+//   };
+
+//   return (
+//     <div className='app'>
+//       <Header />
+//       {showMiddle && <Middle />}
+//       <Footer />
+//       <Navbar onHomeClick={handleHomeClick} onCloseClick={handleCloseClick} />
+//     </div>
+//   );
+// }
+
+// export default App;
+
+// import React, { useState } from 'react';
+// import Header from './components/Header';
+// import Middle from './components/Middle';
+// import Footer from './components/Footer';
+// import Navbar from './components/Navbar';
+// import Home from './pages/Home';
+
+// const App = () => {
+//   const [showMiddle, setShowMiddle] = useState(false);
+
+//   const handleHomeClick = () => {
+//     setShowMiddle(true);
+//   };
+
+//   const handleCloseClick = () => {
+//     setShowMiddle(false);
+//   };
+
+//   return (
+//     <div className='app'>
+//       <Navbar onHomeClick={handleHomeClick} onCloseClick={handleCloseClick} />
+//       <div className='content'>
+//         <Header />
+//         {showMiddle && <Middle />}
+//       </div>
+//       <Footer />
+//       <Home />
+//     </div>
+//   );
+// }
+
+// export default App;
+
+// import React, { useState } from 'react';
+// import { FaBars } from "react-icons/fa";
+// import { IoHomeSharp } from "react-icons/io5";
+// import { AiOutlineClose } from 'react-icons/ai';
+// import { IoMdSunny } from "react-icons/io";
+// import { FaMoon } from "react-icons/fa";
+// import "./../css/Navbar.css";
+
+// const Navbar = ({ onHomeClick, onCloseClick }) => {
+//   const [isOpen, setIsOpen] = useState(false);
+//   const [isDarkMode, setIsDarkMode] = useState(false);
+
+//   const handleIconClick = () => {
+//     setIsOpen(!isOpen);
+//   };
+
+//   const handleThemeToggle = () => {
+//     setIsDarkMode(!isDarkMode);
+//   };
+
+//   return (
+//     <div>
+//       <nav className={`navbar ${isDarkMode ? 'dark' : ''}`}>
+//         {/* Left Section: Always shows the FaBars icon */}
+//         <ul className="nav-left">
+//           <li 
+//             className='nav-icon' 
+//             onClick={handleIconClick}
+//           >
+//             <FaBars />
+//           </li>
+//         </ul>
+//         {/* Right Section: Shows menu items and close icon when isOpen is true */}
+//         {isOpen && (
+//           <ul className="nav-right">
+//             <li onClick={handleIconClick} className='nav-icon close-icon'>
+//               <AiOutlineClose />
+//             </li>
+//             <li onClick={onHomeClick} className='nav-item'>
+//               <IoHomeSharp /> Home
+//             </li>
+//             <li onClick={handleThemeToggle} className='nav-icon'>
+//               {isDarkMode ? <IoMdSunny /> : <FaMoon />}
+//             </li>
+//           </ul>
+//         )}
+//       </nav>
+//     </div>
+//   );
+// }
+
+// export default Navbar;
